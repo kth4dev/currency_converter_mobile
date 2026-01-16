@@ -1,4 +1,5 @@
 import 'package:currency_converter/presentation/app/blocs/theme/theme_cubit.dart';
+import 'package:currency_converter/presentation/splash/bloc/splash_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:currency_converter/data/data.dart';
@@ -20,4 +21,5 @@ Future<void> initDependencies() async {
 
   //blocs
   sl.registerFactory<ThemeCubit>(() => ThemeCubit(sl(), sl()));
+  sl.registerFactory<SplashCubit>(SplashCubit.new);
 }

@@ -24,6 +24,9 @@ dependencies:
   flutter_bloc: ^9.1.1
   equatable: ^2.0.8
 
+  #navigation
+  go_router: ^17.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
