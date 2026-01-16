@@ -1,6 +1,8 @@
 import 'package:currency_converter/core/common/view_state.dart';
 import 'package:currency_converter/core/route/app_routes.dart';
+import 'package:currency_converter/core/theme/dimens.dart';
 import 'package:currency_converter/presentation/splash/bloc/splash_cubit.dart';
+import 'package:currency_converter/presentation/splash/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,10 +23,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SplashCubit, SplashState>(
-      listener: _listenInitializationState,
-      child: const Scaffold(body: Center(child: Text('Currency Converter'))),
+    return Scaffold(
+      body: BlocListener<SplashCubit, SplashState>(
+        listenWhen: _shouldListen,
+        listener: _listenInitializationState,
+        child: const Padding(
+          padding: EdgeInsets.all(Dimens.space24),
+          child: Stack(
+            children: [
+              AppLogoAndName(),
+              InitializationStatusMessageView(),
+              InitializationErrorView(),
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  bool _shouldListen(SplashState previous, SplashState current) {
+    return previous.initState != current.initState;
   }
 
   void _listenInitializationState(BuildContext context, SplashState state) {
