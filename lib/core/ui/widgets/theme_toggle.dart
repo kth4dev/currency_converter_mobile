@@ -33,7 +33,7 @@ class ThemeToggleButton extends StatelessWidget {
             ? (Icons.dark_mode_outlined, ThemeMode.light)
             : (Icons.light_mode_outlined, ThemeMode.dark),
       ThemeMode.light => (Icons.light_mode_outlined, ThemeMode.dark),
-      ThemeMode.dark => (Icons.dark_mode_outlined, ThemeMode.system),
+      ThemeMode.dark => (Icons.dark_mode_outlined, ThemeMode.light),
     };
   }
 }
