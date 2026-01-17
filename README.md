@@ -1,16 +1,57 @@
-# currency_converter
+# Currency Converter
 
-A new Flutter project.
+Offline-first currency converter app built with Flutter.
 
-## Getting Started
+[Download APK](https://bit.ly/3Nr7LAv)
 
-This project is a starting point for a Flutter application.
+## Tech Stack
 
-A few resources to get you started if this is your first Flutter project:
+| Feature | Technology |
+|---------|------------|
+| Language | Dart |
+| Architecture | Clean Architecture + MVVM + BLoC |
+| Networking | Dio |
+| Database | Drift |
+| DI | GetIt |
+| UI | Material3 |
+| Testing | Bloc Test, Widget Test |
+| Linting | Flutter Lints |
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Setup
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 1. Prerequisites
+- Flutter SDK 3.38+ (Dart 3.10.7+)
+
+### 2. Environment Configuration
+
+Create `.env` file in project root:
+
+```env
+API_KEY=your_currencyfreaks_api_key
+```
+
+> Get API key from [CurrencyFreaks](https://currencyfreaks.com/)
+
+### 3. Install & Run
+
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter run
+```
+
+## Testing
+
+```bash
+flutter test
+```
+
+## Features
+
+- Offline-first with local caching
+- Live currency rates from CurrencyFreaks API
+- "Last Updated" / "Using Cached Data" indicator
+- Saved currency conversion (USD → EUR)
+- All supported currencies list
+- Currency calculator
+- Dark/Light theme (Material3)
