@@ -56,7 +56,7 @@ class CurrencyConverterView extends StatelessWidget {
                 onCurrencyTap: () {
                   CurrencySelectorSheet.show(context, rates, (currency) {
                     context.read<CurrencyBloc>().add(
-                      ToCurrencySelected(currency),
+                      FromCurrencySelected(currency),
                     );
                   });
                 },
