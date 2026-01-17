@@ -5,6 +5,7 @@ import 'package:currency_converter/data/datasources/currency_local_datasource.da
 import 'package:currency_converter/data/datasources/currency_remote_datasource.dart';
 import 'package:currency_converter/data/repositories/currency_repository_impl.dart';
 import 'package:currency_converter/presentation/app/blocs/theme/theme_cubit.dart';
+import 'package:currency_converter/presentation/home/blocs/currency_bloc.dart';
 import 'package:currency_converter/presentation/splash/bloc/splash_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -42,8 +43,21 @@ Future<void> initDependencies() async {
   sl.registerSingleton<GetHasCachedData>(GetHasCachedData(sl()));
   sl.registerSingleton<GetLatestRates>(GetLatestRates(sl()));
   sl.registerSingleton<GetSupportedCurrencies>(GetSupportedCurrencies(sl()));
+  sl.registerSingleton<GetOfflineLatestRates>(GetOfflineLatestRates(sl()));
+  sl.registerSingleton<GetUpdatedDate>(GetUpdatedDate(sl()));
+  sl.registerSingleton<GetSelectedFromCurrency>(GetSelectedFromCurrency(sl()));
+  sl.registerSingleton<GetSelectedToCurrency>(GetSelectedToCurrency(sl()));
+  sl.registerSingleton<SaveSelectedFromCurrency>(
+    SaveSelectedFromCurrency(sl()),
+  );
+  sl.registerSingleton<SaveSelectedToCurrency>(SaveSelectedToCurrency(sl()));
+  sl.registerSingleton<GetFromAmount>(GetFromAmount(sl()));
+  sl.registerSingleton<SaveFromAmount>(SaveFromAmount(sl()));
 
   // Blocs / Cubits
   sl.registerFactory<ThemeCubit>(() => ThemeCubit(sl(), sl()));
   sl.registerFactory<SplashCubit>(() => SplashCubit(sl(), sl(), sl()));
+  sl.registerFactory<CurrencyBloc>(
+    () => CurrencyBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()),
+  );
 }

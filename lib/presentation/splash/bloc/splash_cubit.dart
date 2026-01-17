@@ -19,12 +19,12 @@ class SplashCubit extends Cubit<SplashState> {
     const noParams = NoParams();
     emit(state.copyWith(initState: const Initial()));
 
-    // final hasCached = await hasCachedData(noParams);
-    // if (hasCached) {
-    //   await Future.delayed(const Duration(seconds: 2));
-    //   emit(state.copyWith(initState: const Success()));
-    //   return;
-    // }
+    final hasCached = await hasCachedData(noParams);
+    if (hasCached) {
+      await Future.delayed(const Duration(seconds: 2));
+      emit(state.copyWith(initState: const Success()));
+      return;
+    }
 
     emit(state.copyWith(initProcessMessage: 'Getting available currencies...'));
     final infoResult = await getCurrenciesInfo(noParams);

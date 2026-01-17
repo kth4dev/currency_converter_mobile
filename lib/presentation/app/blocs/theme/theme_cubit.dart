@@ -1,6 +1,5 @@
 import 'package:currency_converter/core/usecase/usecase.dart';
 import 'package:currency_converter/domain/domain.dart';
-import 'package:currency_converter/domain/params/save_theme_mode_params.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

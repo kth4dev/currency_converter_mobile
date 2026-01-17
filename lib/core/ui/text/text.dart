@@ -4,7 +4,7 @@ class AppText extends StatelessWidget {
   final String label;
   final TextStyle? style;
   final Color? color;
-  final int? maxLine;
+  final int? maxLines;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
 
@@ -12,7 +12,7 @@ class AppText extends StatelessWidget {
     this.label, {
     super.key,
     this.style,
-    this.maxLine,
+    this.maxLines,
     this.textAlign,
     this.overflow,
     this.color,
@@ -23,7 +23,7 @@ class AppText extends StatelessWidget {
     return Text(
       label,
       style: style?.copyWith(color: color),
-      maxLines: maxLine,
+      maxLines: maxLines,
       textAlign: textAlign,
       overflow: overflow,
     );

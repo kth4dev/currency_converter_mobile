@@ -21,6 +21,7 @@ class CurrencyRepositoryImpl extends CurrencyRepository {
       case Ok<CurrencyRateResponseModel>():
         final rates = remoteResult.value.rates ?? [];
         await _localDatasource.saveCurrencyRates(rates);
+        await _localDatasource.saveUpdatedDate(DateTime.now());
         final mergedData = await _localDatasource.getCurrencyRateWithInfo();
 
         final entities = mergedData
@@ -45,6 +46,42 @@ class CurrencyRepositoryImpl extends CurrencyRepository {
           errorMessage: remoteResult.errorMessage,
           errorType: remoteResult.errorType,
         );
+    }
+  }
+
+  @override
+  Future<Result<List<CurrencyRateEntity>>> getOfflineLatestRates() async {
+    try {
+      final mergedData = await _localDatasource.getCurrencyRateWithInfo();
+
+      if (mergedData.isEmpty) {
+        return const Result.fail(
+          errorMessage: 'No cached rates available',
+          errorType: ErrorType.notFound,
+        );
+      }
+
+      final entities = mergedData
+          .where((m) => m.code != null && m.rate != null)
+          .map(
+            (m) => CurrencyRateEntity(
+              code: m.code!,
+              rate: m.rate!,
+              currencyName: m.currencyName,
+              icon: m.icon,
+              countryCode: m.countryCode,
+              countryName: m.countryName,
+              updatedAt: m.updatedAt,
+            ),
+          )
+          .toList();
+
+      return Result.ok(entities);
+    } catch (e) {
+      return Result.fail(
+        errorMessage: 'Failed to load cached rates: $e',
+        errorType: ErrorType.database,
+      );
     }
   }
 
@@ -111,7 +148,7 @@ class CurrencyRepositoryImpl extends CurrencyRepository {
   }
 
   @override
-  Future<Result<String>> getUpdatedRateDate() async {
+  Future<Result<String>> getUpdatedDate() async {
     final date = await _localDatasource.getUpdatedDate();
     if (date == null) {
       return const Result.fail(
@@ -131,6 +168,21 @@ class CurrencyRepositoryImpl extends CurrencyRepository {
   @override
   Future<Result<void>> saveSelectedToCurrency(String code) async {
     await _localDatasource.saveToCurrency(code);
+    return const Result.ok(null);
+  }
+
+  @override
+  Future<Result<double>> getFromAmount() async {
+    final amount = await _localDatasource.getFromAmount();
+    if (amount == null) {
+      return const Result.ok(1.0); // Default value
+    }
+    return Result.ok(amount);
+  }
+
+  @override
+  Future<Result<void>> saveFromAmount(double amount) async {
+    await _localDatasource.saveFromAmount(amount);
     return const Result.ok(null);
   }
 }

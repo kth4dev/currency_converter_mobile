@@ -62,5 +62,6 @@ class CurrencyDao extends DatabaseAccessor<AppDatabase>
 abstract final class MetadataKeys {
   static const fromCurrency = 'from_currency';
   static const toCurrency = 'to_currency';
+  static const fromAmount = 'from_amount';
   static const updatedRateDate = 'updated_rate_date';
 }

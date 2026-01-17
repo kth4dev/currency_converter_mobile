@@ -1,5 +1,6 @@
 import 'package:currency_converter/core/di/injection_container.dart';
 import 'package:currency_converter/core/route/app_routes.dart';
+import 'package:currency_converter/presentation/home/blocs/currency_bloc.dart';
 import 'package:currency_converter/presentation/home/home_screen.dart';
 import 'package:currency_converter/presentation/splash/bloc/splash_cubit.dart';
 import 'package:currency_converter/presentation/splash/splash_screen.dart';
@@ -17,7 +18,13 @@ class AppRouter {
           child: const SplashScreen(),
         ),
       ),
-      GoRoute(path: AppRoutes.home, builder: (_, _) => const HomeScreen()),
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (_, _) => BlocProvider(
+          create: (_) => sl<CurrencyBloc>()..add(CurrencyConverterStarted()),
+          child: const HomeScreen(),
+        ),
+      ),
     ],
   );
 }

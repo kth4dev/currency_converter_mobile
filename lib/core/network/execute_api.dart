@@ -18,7 +18,7 @@ Future<Result<T>> executeApiRequest<T>({
     debugPrint('Execute API Exception : SocketException');
     return Result.fail(
       errorMessage:
-          'No internet connection. Please check your network and try again.',
+          'No internet connection',
       errorType: ErrorType.network,
     );
   } catch (e) {
@@ -67,7 +67,7 @@ Result<T> _handleDioException<T>(DioException e, String defaultErrorMessage) {
   if (e.type == DioExceptionType.connectionError) {
     return Result.fail(
       errorMessage:
-          'No internet connection. Please check your network and try again.',
+          'No internet connection',
       errorType: ErrorType.network,
     );
   } else if (e.response != null) {

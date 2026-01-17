@@ -101,4 +101,14 @@ class CurrencyLocalDatasource {
   Future<void> saveToCurrency(String code) async {
     await _dao.setMetadata(MetadataKeys.toCurrency, code);
   }
+
+  Future<double?> getFromAmount() async {
+    final value = await _dao.getMetadata(MetadataKeys.fromAmount);
+    if (value == null) return null;
+    return double.tryParse(value);
+  }
+
+  Future<void> saveFromAmount(double amount) async {
+    await _dao.setMetadata(MetadataKeys.fromAmount, amount.toString());
+  }
 }
